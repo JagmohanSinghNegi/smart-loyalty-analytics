@@ -1,0 +1,17 @@
+@startuml
+actor User
+participant Frontend
+participant Backend
+participant "Model (joblib)" as Model
+participant "RFM Data (CSV)" as RFM
+
+User -> Frontend: Enter customer_id & submit
+Frontend -> Backend: POST /predict-loyalty {customer_id}
+Backend -> Model: load model if not cached
+Backend -> RFM: load rfm_features.csv
+Backend -> Model: predict_proba(X)
+Model --> Backend: probability
+Backend --> Frontend: JSON {loyalty_score, loyal}
+Frontend --> User: Display result
+
+@enduml

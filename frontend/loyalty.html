@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loyalty Prediction</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Loyalty Prediction</h1>
+        <p class="subtitle">Check if a customer is likely to remain loyal</p>
+        <nav>
+          <a href="index.html" class="nav-link">← Back to Home</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="form-section">
+          <div class="form-card">
+            <h2>Enter Customer ID</h2>
+            <form id="loyaltyForm">
+              <div class="form-group">
+                <label for="customerId">Customer ID:</label>
+                <input
+                  type="text"
+                  id="customerId"
+                  name="customerId"
+                  placeholder="e.g., 1002"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary btn-large"
+                id="predictBtn"
+              >
+                Get Loyalty
+              </button>
+            </form>
+
+            <div id="loading" class="loading hidden">
+              <p>Loading...</p>
+            </div>
+
+            <div id="error" class="error hidden"></div>
+
+            <div id="result" class="result hidden">
+              <div class="result-card">
+                <h3>Prediction Result</h3>
+                <div class="result-content">
+                  <p>
+                    <strong>Customer ID:</strong>
+                    <span id="resultCustomerId"></span>
+                  </p>
+                  <p>
+                    <strong>Loyalty Score:</strong>
+                    <span id="resultScore"></span>
+                  </p>
+                  <p>
+                    <strong>Status:</strong> <span id="resultStatus"></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="info-section">
+          <h2>How It Works</h2>
+          <p>
+            The loyalty prediction model analyzes customer behavior using RFM
+            (Recency, Frequency, Monetary) metrics:
+          </p>
+          <ul>
+            <li>
+              <strong>Recency:</strong> How recently the customer made a
+              purchase
+            </li>
+            <li>
+              <strong>Frequency:</strong> How often the customer purchases
+            </li>
+            <li><strong>Monetary:</strong> How much the customer spends</li>
+          </ul>
+          <p>A score closer to 1.0 indicates higher loyalty likelihood.</p>
+        </section>
+      </main>
+
+      <footer>
+        <p>&copy; 2025 Smart Loyalty System</p>
+      </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

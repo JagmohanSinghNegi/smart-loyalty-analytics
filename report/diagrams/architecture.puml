@@ -1,0 +1,25 @@
+@startuml
+title Smart Loyalty System - Component Architecture
+
+package "User Layer" {
+  actor "User\n(Researcher / Analyst / Retail Manager)" as User
+  rectangle Frontend [ "Frontend\n(index.html, loyalty.html, recommendation.html)\nClient-side JS" ]
+}
+
+package "Application Layer" {
+  component Backend [ "Flask API\n/routes, /utils, /train_loyalty.py" ]
+  component ModelStore [ "models/\nloyalty_model.pkl\npipeline.pkl\nrfm_features.csv" ]
+}
+
+package "Data Layer" {
+  database DataFiles [ "data/raw, data/cleaned\nCSV files" ]
+  folder Notebooks [ "notebooks/\ncleaning.py, eda.ipynb, model.ipynb" ]
+}
+
+User -> Frontend: use
+Frontend -> Backend: REST API calls
+Backend --> ModelStore: read/write models & features
+Backend --> DataFiles: read cleaned CSVs
+Backend -> Notebooks: (offline) retrain / analyze
+
+@enduml

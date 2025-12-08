@@ -1,0 +1,25 @@
+@startuml
+left to right direction
+actor "Academic Institution" as AI
+actor "Data Analyst" as DA
+actor "Retail Manager" as RM
+rectangle "Smart Loyalty System" {
+  usecase "Compute RFM" as UC1
+  usecase "Generate Loyalty Labels" as UC2
+  usecase "Train Models" as UC3
+  usecase "Predict Loyalty" as UC4
+  usecase "Recommend Products" as UC5
+  usecase "View Dashboard" as UC6
+  usecase "Manage Data" as UC7
+}
+
+AI --> UC6
+AI --> UC3
+AI --> UC7
+DA --> UC1
+DA --> UC3
+DA --> UC6
+RM --> UC4
+RM --> UC5
+
+@enduml
