@@ -1,7 +1,15 @@
-const API_BASE_URL =
-  window.location.hostname === "localhost"
-    ? "http://127.0.0.1:5000"
-    : "https://your-render-url.onrender.com";
+const API_BASE_URL = (() => {
+  // If deploy sets a global BACKEND_URL (e.g., when frontend hosted separately), prefer it.
+  if (window.BACKEND_URL) {
+    return window.BACKEND_URL.replace(/\/$/, "");
+  }
+  // When opening the HTML directly (file://) during dev, call the local Flask server.
+  if (window.location.protocol === "file:") {
+    return "http://127.0.0.1:5000";
+  }
+  // In production or when served from the backend, use the same origin.
+  return window.location.origin;
+})();
 
 document.addEventListener("DOMContentLoaded", function () {
   const loyaltyForm = document.getElementById("loyaltyForm");
@@ -72,8 +80,9 @@ async function predictLoyalty(customerId) {
     resultEl.classList.remove("hidden");
   } catch (error) {
     console.error("Error:", error);
+    console.error(error);
     showError(
-      "Network error. Make sure the Flask server is running on http://127.0.0.1:5000",
+      "Network error. Make sure the backend server is reachable.",
       "loyaltyForm"
     );
     loadingEl.classList.add("hidden");
@@ -155,7 +164,7 @@ async function getRecommendations(productName, topN) {
   } catch (error) {
     console.error("Error:", error);
     showError(
-      "Network error. Make sure the Flask server is running on http://127.0.0.1:5000",
+      "Network error. Make sure the backend server is reachable.",
       "recommendationForm"
     );
     loadingEl.classList.add("hidden");
